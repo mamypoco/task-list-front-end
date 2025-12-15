@@ -13,7 +13,9 @@ const Task = ({ id, title, isComplete }) => {
         className={`tasks__item__toggle ${buttonClass}`}
         onClick={() => setComplete(!complete)}
       >
+        <div className="task-title">
         {title}
+        </div>
       </button>
       <button className="tasks__item__remove button">x</button>
     </li>

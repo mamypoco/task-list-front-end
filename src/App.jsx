@@ -1,5 +1,6 @@
 import TaskList from './components/TaskList.jsx';
 import './App.css';
+import { useState } from 'react';
 
 const TASKS = [
   {
@@ -15,6 +16,18 @@ const TASKS = [
 ];
 
 const App = () => {
+  const [tasksData, setTasksData] = useState(TASKS);
+
+  const toggleTaskCompletion = (taskId) => {
+    const tasks = tasksData.map(task => {
+      if (task.id === taskId) {
+        return { ...tasksData, isComplete: !task.isComplete };
+      } else {
+        return task;
+      }
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -26,5 +39,6 @@ const App = () => {
     </div>
   );
 };
+
 
 export default App;
