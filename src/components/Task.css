@@ -28,6 +28,10 @@
   border-color: rgba(0, 128, 0, 0.2);
 }
 
+.tasks__item__toggle {
+  border-color: rgba(0, 128, 0, 0.2);
+}
+
 /* .tasks__item__toggle {
   cursor: pointer;
   width: 100%;
