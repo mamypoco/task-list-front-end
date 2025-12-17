@@ -31,13 +31,9 @@ const App = () => {
   };
 
   const taskDeletion = (taskId) => {
-    setTasksData(tasks => {
-      return tasks.filter(task => {
-        task.id !== taskId;
-      });
-    });
+    setTasksData((tasks) => tasks.filter((task) => task.id !== taskId));
   };
-
+  console.log('tasksData in App:', tasksData);
 
   return (
     <div className="App">
