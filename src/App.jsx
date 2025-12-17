@@ -31,8 +31,8 @@ const App = () => {
   };
 
   const taskDeletion = (taskId) => {
-    setTasksData(tasks => {
-      return tasks.filter(task => {
+    setTasksData(tasksData => {
+      return tasksData.filter(task => {
         task.id !== taskId;
       });
     });

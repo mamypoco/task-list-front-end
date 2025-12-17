@@ -11,10 +11,11 @@ const Task = ({ id, title, isComplete, toggleTaskCompletion, taskDeletion }) => 
     console.log(id, title, isComplete);
   };
 
-  const onTaskDeletion = () => {
-    taskDeletion(id);
-    console.log(id, title, isComplete);
-  };
+  // const onTaskDeletion = () => {
+  //   taskDeletion(id);
+  //   console.log.log(tasksData)
+  //   console.log(id, title, isComplete);
+  // };
 
 
   return (
@@ -27,7 +28,7 @@ const Task = ({ id, title, isComplete, toggleTaskCompletion, taskDeletion }) => 
           {title}
         </div>
       </button>
-      <button onClick={onTaskDeletion} className="tasks__item__remove button">x</button>
+      <button onClick={(event) => taskDeletion(id)} className="tasks__item__remove button">x</button>
     </li>
   );
 };
