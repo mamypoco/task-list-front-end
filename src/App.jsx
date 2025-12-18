@@ -1,6 +1,7 @@
 import TaskList from './components/TaskList.jsx';
 import './App.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 const TASKS = [
   {
@@ -14,6 +15,14 @@ const TASKS = [
     isComplete: true,
   },
 ];
+
+const flaskBaseURL = 'http://127.0.0.1:5000';
+
+const getAllTasksAPI = () => {
+  return axios.get(`${flaskBaseURL}/tasks`)
+    .then(response => response.data)
+    .catch(error => console.log(error));
+};
 
 const App = () => {
   const [tasksData, setTasksData] = useState(TASKS);
