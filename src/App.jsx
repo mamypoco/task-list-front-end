@@ -55,17 +55,17 @@ const App = () => {
 
   const toggleTaskCompletion = (taskId, isComplete) => {
     return markCompleteBehaviorAPI(taskId, isComplete)
-      .then(()=> {
-        return setTasksData(tasks => {
-          return tasks.map(task => {
+      .then(()=> (
+        setTasksData(tasks => (
+          tasks.map(task => {
             if (task.id === taskId) {
               return { ...task, isComplete: !task.isComplete };
             } else {
               return task;
             }
-          });
-        });
-      });
+          })
+        ))
+      ));
   };
 
   const taskDeletion = (taskId) => {

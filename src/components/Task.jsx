@@ -7,6 +7,7 @@ const Task = ({ id, title, isComplete, toggleTaskCompletion, taskDeletion }) => 
 
   const onTaskCompletion = () => {
     toggleTaskCompletion(id, isComplete);
+    console.log(title, isComplete);
   };
 
   const onTaskDeletion = () => {
