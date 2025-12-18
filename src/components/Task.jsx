@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './Task.css';
@@ -7,13 +6,11 @@ const Task = ({ id, title, isComplete, toggleTaskCompletion, taskDeletion }) => 
   const buttonClass = isComplete ? 'tasks__item__toggle--completed' : '';
 
   const onTaskCompletion = () => {
-    toggleTaskCompletion(id);
-    console.log(id, title, isComplete);
+    toggleTaskCompletion(id, isComplete);
   };
 
   const onTaskDeletion = () => {
     taskDeletion(id);
-    console.log(id, title, isComplete);
   };
 
 

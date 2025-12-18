@@ -1,39 +1,79 @@
 import TaskList from './components/TaskList.jsx';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const TASKS = [
-  {
-    id: 1,
-    title: 'Mow the lawn',
-    isComplete: false,
-  },
-  {
-    id: 2,
-    title: 'Cook Pasta',
-    isComplete: true,
-  },
-];
+//// connecting database via flask ////
+const flaskBaseURL = 'http://127.0.0.1:5000';
+
+const getAllTasksAPI = () => {
+  return axios.get(`${flaskBaseURL}/tasks`)
+    .then(response => response.data)
+    .catch(error => console.log(error));
+};
+
+const convertFromAPI = (apiTask) => {
+  const newTask = {
+    ...apiTask,
+    isComplete: apiTask.is_complete,
+  };
+  delete newTask.is_complete;
+  delete newTask.description;
+  delete newTask.goal_id;
+
+  return newTask;
+};
+
+const removeTaskAPI = id => {
+  return axios.delete(`${flaskBaseURL}/tasks/${id}`)
+    .catch(error => console.log(error));
+};
+
+const markCompleteBehaviorAPI = (id, isComplete) => {
+  const endpoint = isComplete ? 'mark_incomplete' : 'mark_complete';
+  return axios.patch(`${flaskBaseURL}/tasks/${id}/${endpoint}`)
+    .catch(error => console.log(error));
+};
 
 const App = () => {
-  const [tasksData, setTasksData] = useState(TASKS);
+  const [tasksData, setTasksData] = useState([]);
 
-  const toggleTaskCompletion = (taskId) => {
-    setTasksData(tasks => {
-      return tasks.map(task => {
-        if (task.id === taskId) {
-          return { ...task, isComplete: !task.isComplete };
-        } else {
-          return task;
-        }
+  const getAllTasks = () => {
+    return getAllTasksAPI()
+      .then(tasks => {
+        const newTasks = tasks.map(convertFromAPI);
+        setTasksData(newTasks);
+        console.log('newTasks', newTasks);
       });
-    });
+  };
+
+  useEffect(() => {
+    getAllTasks();
+    console.log(tasksData);
+  }, []);
+
+
+  const toggleTaskCompletion = (taskId, isComplete) => {
+    return markCompleteBehaviorAPI(taskId, isComplete)
+      .then(()=> {
+        return setTasksData(tasks => {
+          return tasks.map(task => {
+            if (task.id === taskId) {
+              return { ...task, isComplete: !task.isComplete };
+            } else {
+              return task;
+            }
+          });
+        });
+      });
   };
 
   const taskDeletion = (taskId) => {
-    setTasksData((tasks) => tasks.filter((task) => task.id !== taskId));
+    return removeTaskAPI(taskId)
+      .then(()=> {
+        return setTasksData((tasks) => tasks.filter((task) => task.id !== taskId));
+      });
   };
-  console.log('tasksData in App:', tasksData);
 
   return (
     <div className="App">
