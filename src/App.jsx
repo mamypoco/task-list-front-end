@@ -77,6 +77,7 @@ const App = () => {
   const onHandleSubmit = (data) => {
     return addTaskAPI(data)
       .then((result) => {
+        //tried reversing the spread syntax so new task shows top but didn't change the order
         return setTasksData((prevTasks) => [convertFromAPI(result.data), ...prevTasks]);
       });
   };
@@ -95,7 +96,7 @@ const App = () => {
       </header>
       <main>
         <div className="title-wrapper">
-        <NewTaskForm onHandleSubmit={onHandleSubmit}/>
+          <NewTaskForm onHandleSubmit={onHandleSubmit}/>
         </div>
         <div>
           <TaskList 
@@ -103,7 +104,6 @@ const App = () => {
             toggleTaskCompletion={toggleTaskCompletion}
             taskDeletion={taskDeletion}/>
         </div>
-        
       </main>
     </div>
   );
