@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import './NewTaskForm.css';
 
 
 const NewTaskForm = ({onHandleSubmit}) => {
@@ -21,9 +22,9 @@ const NewTaskForm = ({onHandleSubmit}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="task-form">
       <label htmlFor="title">Enter New Task: </label>
-      <input type="text" id="title" name="title" value={title} onChange={handleTitleChange}/>
+      <input type="text" id="title" name="title" value={title} onChange={handleTitleChange} className="task-input"/>
       <div className="submit-button-wrapper">
         <input type="submit" value="Add a task"/>
       </div>

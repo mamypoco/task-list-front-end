@@ -94,13 +94,16 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
+        <div className="title-wrapper">
+        <NewTaskForm onHandleSubmit={onHandleSubmit}/>
+        </div>
         <div>
           <TaskList 
             tasks={tasksData}
             toggleTaskCompletion={toggleTaskCompletion}
             taskDeletion={taskDeletion}/>
         </div>
-        <NewTaskForm onHandleSubmit={onHandleSubmit}/>
+        
       </main>
     </div>
   );
