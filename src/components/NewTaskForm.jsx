@@ -2,29 +2,58 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './NewTaskForm.css';
 
+const kDefaultsFormState = {
+  title: '',
+  description: '',
+  isComplete: false
+};
+
 
 const NewTaskForm = ({onHandleSubmit}) => {
-  const [title, setTitle] = useState('');
+  const [formData, setFormData] = useState(kDefaultsFormState);
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
+  //  const [title, setTitle] = useStateuseState()
+
+  const handleChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+
+    setFormData((formData)=> {
+      return {
+        ...formData,
+        [inputName]: inputValue
+      };
+    });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newtask = {
-      title,
-      isComplete: false,
-      description: ''
-    };
-    onHandleSubmit(newtask);
-    setTitle('');
+    onHandleSubmit(formData);
+    setFormData(kDefaultsFormState)
   }
+
+  const makeControlledInput = (inputName) => {
+    return (
+      <input
+        type="text"
+        name={inputName}
+        id={`input-${inputName}`}
+        value={formData[inputName]}
+        onChange={handleChange}
+      />
+    );
+  };
 
   return (
     <form onSubmit={handleSubmit} className="task-form">
-      <label htmlFor="title">Enter New Task: </label>
-      <input type="text" id="title" name="title" value={title} onChange={handleTitleChange} className="task-input"/>
+      <div>
+        <label htmlFor="title">Enter New Task: </label>
+        { makeControlledInput('title') }
+      </div>
+      <div>
+        <label htmlFor="description">Description:</label>
+        { makeControlledInput('description') }
+      </div>
       <div className="submit-button-wrapper">
         <input type="submit" value="Add a task"/>
       </div>
