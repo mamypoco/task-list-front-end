@@ -27,3 +27,7 @@
 .App-link {
   color: #61dafb;
 }
+
+.title-wrapper {
+  margin-block: 1rem
+}

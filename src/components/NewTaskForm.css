@@ -1,0 +1,10 @@
+.task-form {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* .task-input {
+  padding: 10px 12 px;
+  font-size: 16px;
+} */
