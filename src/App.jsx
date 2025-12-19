@@ -1,7 +1,8 @@
-import TaskList from './components/TaskList.jsx';
+import TaskList from './components/TaskList';
 import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import NewTaskForm from './components/NewTaskForm';
 
 //// connecting database via flask ////
 const flaskBaseURL = 'http://127.0.0.1:5000';
@@ -23,6 +24,11 @@ const convertFromAPI = (apiTask) => {
 
   return newTask;
 };
+
+const addTaskAPI = (newTask) => {
+  return axios.post(`${flaskBaseURL}/tasks`, newTask)
+    .catch(error => console.log(error));
+}
 
 const removeTaskAPI = id => {
   return axios.delete(`${flaskBaseURL}/tasks/${id}`)
@@ -68,6 +74,13 @@ const App = () => {
       ));
   };
 
+  const onHandleSubmit = (data) => {
+    return addTaskAPI(data)
+      .then((result) => {
+        return setTasksData((prevTasks) => [convertFromAPI(result.data), ...prevTasks]);
+      });
+  };
+
   const taskDeletion = (taskId) => {
     return removeTaskAPI(taskId)
       .then(()=> {
@@ -81,8 +94,13 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <div><TaskList tasks={tasksData} toggleTaskCompletion={toggleTaskCompletion} taskDeletion={taskDeletion} />
+        <div>
+          <TaskList 
+            tasks={tasksData}
+            toggleTaskCompletion={toggleTaskCompletion}
+            taskDeletion={taskDeletion}/>
         </div>
+        <NewTaskForm onHandleSubmit={onHandleSubmit}/>
       </main>
     </div>
   );
