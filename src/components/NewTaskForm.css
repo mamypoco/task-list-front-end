@@ -1,7 +1,8 @@
 .task-form {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  justify-content: center;
+  justify-content: start;
 }
 
 /* .task-input {

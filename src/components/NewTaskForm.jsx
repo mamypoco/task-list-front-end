@@ -51,7 +51,7 @@ const NewTaskForm = ({onHandleSubmit}) => {
         { makeControlledInput('title') }
       </div>
       <div>
-        <label htmlFor="description">Description:</label>
+        <label htmlFor="description">Description: </label>
         { makeControlledInput('description') }
       </div>
       <div className="submit-button-wrapper">
