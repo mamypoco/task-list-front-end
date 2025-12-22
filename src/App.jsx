@@ -19,7 +19,7 @@ const convertFromAPI = (apiTask) => {
     isComplete: apiTask.is_complete,
   };
   delete newTask.is_complete;
-  delete newTask.goal_id;
+  // delete newTask.goal_id;
 
   return newTask;
 };

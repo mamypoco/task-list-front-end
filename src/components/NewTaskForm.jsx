@@ -28,7 +28,7 @@ const NewTaskForm = ({onHandleSubmit}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onHandleSubmit(formData);
+    onHandleSubmit(formData);//reset data to the default
     setFormData(kDefaultsFormState)
   }
 
